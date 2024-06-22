@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { DropDown } from "./DropDown";
 import { Input } from "./ui/input";
 import { useEffect } from "react";
+import { ProductsTable } from "./Table";
 
 const TransactionTable = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("march");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  // const [month, setMonth] = useState("march");
+  const [tableData, setTableData] = useState({});
   const limit = 10;
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
@@ -38,7 +39,7 @@ const TransactionTable = () => {
         }
 
         const data = await res.json();
-        console.log(data);
+        setTableData(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -49,17 +50,28 @@ const TransactionTable = () => {
   }, [debouncedValue, page, selectedMonth]);
 
   return (
-    <div className="flex justify-center items-center w-full px-4 py-3 gap-4">
-      <Input
-        type="text"
-        placeholder="Search"
-        value={searchValue}
-        onChange={handleSearchChange}
-      />
-      <DropDown
-        selectedMonth={selectedMonth}
-        onMonthChange={handleMonthChange}
-      />
+    <div className="flex justify-center items-center flex-col w-full px-4 py-3 gap-4">
+      <div className="flex justify-center items-center w-full gap-4">
+        <Input
+          type="text"
+          placeholder="Search"
+          value={searchValue}
+          onChange={handleSearchChange}
+        />
+        <DropDown
+          selectedMonth={selectedMonth}
+          onMonthChange={handleMonthChange}
+        />
+      </div>
+      <div>
+        {tableData.products.length > 0 ? (
+          <ProductsTable products={tableData.products} />
+        ) : (
+          <div className="m-4">
+            No product sale found for {selectedMonth} try choosing another month
+          </div>
+        )}
+      </div>
     </div>
   );
 };
