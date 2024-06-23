@@ -19,7 +19,7 @@ ChartJS.register(
 
 import { Doughnut } from "react-chartjs-2";
 
-const URL = "https://roxiller-back.onrender.com/";
+const URL = "https://roxiller-back.onrender.com";
 
 const PieChart = ({ month }) => {
   const [pieData, setPieData] = useState([]);
