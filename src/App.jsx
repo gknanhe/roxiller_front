@@ -1,3 +1,4 @@
+import Statistics from "./components/Statistics";
 import TransactionTable from "./components/TransactionTable";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       </header>
 
       <TransactionTable />
+      {/* <Statistics /> */}
     </>
   );
 }

@@ -4,11 +4,15 @@ import { DropDown } from "./DropDown";
 import { Input } from "./ui/input";
 import { useEffect } from "react";
 import { ProductsTable } from "./Table";
+import Statistics from "./Statistics";
+import Barchart from "./Barchart";
+import PieChart from "./PieChart";
 
 const TransactionTable = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("march");
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState({});
   const limit = 10;
@@ -20,9 +24,7 @@ const TransactionTable = () => {
 
   const debouncedValue = useDebounce(searchValue, 500);
 
-  const handleMonthChange = (month) => {
-    setSelectedMonth(month);
-  };
+  /** ----------- call api for transactions --------------- */
 
   useEffect(() => {
     //fetch transactions
@@ -40,6 +42,8 @@ const TransactionTable = () => {
 
         const data = await res.json();
         setTableData(data);
+        setTotalPages(data.totalPages);
+        // console.log(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -48,6 +52,47 @@ const TransactionTable = () => {
     };
     transactions();
   }, [debouncedValue, page, selectedMonth]);
+
+  /** Handle things */
+  const handleMonthChange = (month) => {
+    setSelectedMonth(month);
+    setPage(1);
+  };
+
+  // Next Page-------------------------
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage((prev) => {
+        return prev + 1;
+      });
+    }
+  };
+
+  // Prev Page-----------------------------
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+    }
+  };
+
+  //Dynamic table colums for transaction items
+  const transactionColumns = [
+    { label: "Index", render: (_, index) => index },
+    { label: "ID", accessor: "_id" },
+    { label: "Title", accessor: "title" },
+    { label: "Description", accessor: "description" },
+    { label: "Price", accessor: "price", cellClassName: "text-right" },
+    { label: "Category", accessor: "category" },
+    { label: "Sold", render: (item) => item.sold.toString() },
+    {
+      label: "Item Image",
+      render: (item) => (
+        <div className="w-[90px]">
+          <img src={item.image} alt="img" />
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="flex justify-center items-center flex-col w-full px-4 py-3 gap-4">
@@ -63,15 +108,50 @@ const TransactionTable = () => {
           onMonthChange={handleMonthChange}
         />
       </div>
-      <div>
-        {tableData.products.length > 0 ? (
-          <ProductsTable products={tableData.products} />
-        ) : (
-          <div className="m-4">
-            No product sale found for {selectedMonth} try choosing another month
+      {
+        /*-------------- Loading -------------*/
+        loading ? (
+          <div className="mx-14 my-14">
+            <div className="dot-spinner">
+              <div className="dot-spinner__dot"></div>
+              <div className="dot-spinner__dot"></div>
+              <div className="dot-spinner__dot"></div>
+              <div className="dot-spinner__dot"></div>
+              <div className="dot-spinner__dot"></div>
+              <div className="dot-spinner__dot"></div>
+              <div className="dot-spinner__dot"></div>
+              <div className="dot-spinner__dot"></div>
+            </div>
           </div>
-        )}
-      </div>
+        ) : (
+          /*----------------tabel data-----------*/
+          <div>
+            {tableData.products?.length > 0 ? (
+              <ProductsTable
+                products={tableData.products}
+                page={page}
+                columns={transactionColumns}
+                totalPages={totalPages}
+                handlePrevPage={handlePrevPage}
+                handleNextPage={handleNextPage}
+                title="A list of Transactions"
+              />
+            ) : (
+              /*----------------if no tabel enty matchess -----------*/
+
+              <div className="m-4">
+                No product sale found for {selectedMonth} try choosing another
+                month
+              </div>
+            )}
+          </div>
+        )
+      }
+      {/*  Statistics  componant */}
+      <Statistics selectedMonth={selectedMonth} search={debouncedValue} />
+
+      <Barchart month={selectedMonth} />
+      <PieChart month={selectedMonth} />
     </div>
   );
 };
