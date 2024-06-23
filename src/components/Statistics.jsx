@@ -6,7 +6,7 @@ const Statistics = ({ selectedMonth, search }) => {
   const [statisticsData, setStatisticsData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const URL = "http://localhost:8000";
+  const URL = "https://roxiller-back.onrender.com/";
 
   /** ------------- call API --------- */
   useEffect(() => {

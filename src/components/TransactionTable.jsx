@@ -20,7 +20,7 @@ const TransactionTable = () => {
     setSearchValue(event.target.value);
   };
 
-  const URL = "http://localhost:8000";
+  const URL = "https://roxiller-back.onrender.com/";
 
   const debouncedValue = useDebounce(searchValue, 500);
 

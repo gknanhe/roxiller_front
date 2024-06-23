@@ -11,7 +11,7 @@ import {
 } from "chart.js";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const URL = "http://localhost:8000";
+const URL = "https://roxiller-back.onrender.com/";
 
 const Barchart = ({ month }) => {
   const [barData, setBarData] = useState([]);
