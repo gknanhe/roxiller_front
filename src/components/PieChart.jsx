@@ -64,8 +64,8 @@ const PieChart = ({ month }) => {
   };
 
   return (
-    <div className="w-[28%] flex flex-col items-center gap-16">
-      <h1 className="text-3xl uppercase">Pie Chart - {month}</h1>
+    <div className="w-[70%] sm:w-[28%] flex flex-col items-center gap-16">
+      <h1 className="text-2xl uppercase">Pie Chart - {month}</h1>
       <Doughnut data={data} />
     </div>
   );

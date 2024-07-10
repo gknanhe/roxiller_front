@@ -57,7 +57,7 @@ const Statistics = ({ selectedMonth, search }) => {
   ];
 
   return (
-    <div className="flex justify-center items-center   flex-col gap-4 my-4">
+    <div className="flex justify-center items-center   flex-col gap-4 my-4  sm:w-fit">
       <h1 className="font-bold text-2xl">Transctions Statistics</h1>
       <ProductsTable
         products={[statisticsData]}

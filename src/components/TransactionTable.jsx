@@ -80,15 +80,31 @@ const TransactionTable = () => {
     { label: "Index", render: (_, index) => index },
     { label: "ID", accessor: "_id" },
     { label: "Title", accessor: "title" },
-    { label: "Description", accessor: "description" },
+    // {
+    //   label: "Description",
+    //   accessor: "description",
+    //   cellClassName: "overflow-hidden whitespace-nowrap text-ellipsis",
+    // },
+    {
+      label: "Description",
+      accessor: "description",
+      cellClassName: "max-w-xs overflow-hidden whitespace-nowrap text-ellipsis",
+      render: (product) => (
+        <div className="truncate">{product.description}</div>
+      ),
+    },
     { label: "Price", accessor: "price", cellClassName: "text-right" },
     { label: "Category", accessor: "category" },
     { label: "Sold", render: (item) => item.sold.toString() },
     {
       label: "Item Image",
       render: (item) => (
-        <div className="w-[90px]">
-          <img src={item.image} alt="img" />
+        <div className="w-[90px] h-[90px] overflow-hidden">
+          <img
+            src={item.image}
+            alt="img"
+            className="object-contain w-full h-full"
+          />
         </div>
       ),
     },
@@ -125,33 +141,35 @@ const TransactionTable = () => {
           </div>
         ) : (
           /*----------------tabel data-----------*/
-          <div>
-            {tableData.products?.length > 0 ? (
-              <ProductsTable
-                products={tableData.products}
-                page={page}
-                columns={transactionColumns}
-                totalPages={totalPages}
-                handlePrevPage={handlePrevPage}
-                handleNextPage={handleNextPage}
-                title="A list of Transactions"
-              />
-            ) : (
-              /*----------------if no tabel enty matchess -----------*/
+          <>
+            <div className="w-screen lg:w-[80%] px-5 ">
+              {tableData.products?.length > 0 ? (
+                <ProductsTable
+                  products={tableData.products}
+                  page={page}
+                  columns={transactionColumns}
+                  totalPages={totalPages}
+                  handlePrevPage={handlePrevPage}
+                  handleNextPage={handleNextPage}
+                  title="A list of Transactions"
+                />
+              ) : (
+                /*----------------if no tabel enty matchess -----------*/
 
-              <div className="m-4">
-                No product sale found for {selectedMonth} try choosing another
-                month
-              </div>
-            )}
-          </div>
+                <div className="m-4">
+                  No product sale found for {selectedMonth} try choosing another
+                  month
+                </div>
+              )}
+            </div>
+            <Statistics selectedMonth={selectedMonth} search={debouncedValue} />
+
+            <Barchart month={selectedMonth} />
+            <PieChart month={selectedMonth} />
+          </>
         )
       }
       {/*  Statistics  componant */}
-      <Statistics selectedMonth={selectedMonth} search={debouncedValue} />
-
-      <Barchart month={selectedMonth} />
-      <PieChart month={selectedMonth} />
     </div>
   );
 };

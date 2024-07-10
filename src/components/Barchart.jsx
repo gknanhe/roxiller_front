@@ -56,6 +56,41 @@ const Barchart = ({ month }) => {
     " 901-above",
   ];
 
+  // const data = {
+  //   labels: xLabel,
+  //   datasets: [
+  //     {
+  //       label: "Month Wise Bar Chart",
+  //       data: barArray,
+  //       backgroundColor: [
+  //         "rgba(75, 192, 192, 0.2)", // Green
+  //         "rgba(54, 162, 235, 0.2)", // Blue
+  //         "rgba(75, 192, 192, 0.2)", // Green
+  //         "rgba(54, 162, 235, 0.2)", // Blue
+  //         "rgba(75, 192, 192, 0.2)", // Green
+  //         "rgba(54, 162, 235, 0.2)", // Blue
+  //         "rgba(75, 192, 192, 0.2)", // Green
+  //         "rgba(54, 162, 235, 0.2)", // Blue
+  //         "rgba(75, 192, 192, 0.2)", // Green
+  //         "rgba(54, 162, 235, 0.2)", // Blue
+  //       ],
+  //       borderColor: [
+  //         "rgb(75, 192, 192)", // Green
+  //         "rgb(54, 162, 235)", // Blue
+  //         "rgb(75, 192, 192)", // Green
+  //         "rgb(54, 162, 235)", // Blue
+  //         "rgb(75, 192, 192)", // Green
+  //         "rgb(54, 162, 235)", // Blue
+  //         "rgb(75, 192, 192)", // Green
+  //         "rgb(54, 162, 235)", // Blue
+  //         "rgb(75, 192, 192)", // Green
+  //         "rgb(54, 162, 235)", // Blue
+  //       ],
+  //       borderWidth: 2,
+  //     },
+  //   ],
+  // };
+
   const data = {
     labels: xLabel,
     datasets: [
@@ -63,28 +98,28 @@ const Barchart = ({ month }) => {
         label: "Month Wise Bar Chart",
         data: barArray,
         backgroundColor: [
-          "rgba(75, 192, 192, 0.2)", // Green
-          "rgba(54, 162, 235, 0.2)", // Blue
-          "rgba(75, 192, 192, 0.2)", // Green
-          "rgba(54, 162, 235, 0.2)", // Blue
-          "rgba(75, 192, 192, 0.2)", // Green
-          "rgba(54, 162, 235, 0.2)", // Blue
-          "rgba(75, 192, 192, 0.2)", // Green
-          "rgba(54, 162, 235, 0.2)", // Blue
-          "rgba(75, 192, 192, 0.2)", // Green
-          "rgba(54, 162, 235, 0.2)", // Blue
+          "rgba(68, 136, 221, 0.2)", // Chart 1
+          "rgba(46, 184, 138, 0.2)", // Chart 2
+          "rgba(242, 153, 51, 0.2)", // Chart 3
+          "rgba(153, 102, 204, 0.2)", // Chart 4
+          "rgba(221, 68, 136, 0.2)", // Chart 5
+          "rgba(68, 136, 221, 0.2)", // Chart 1
+          "rgba(46, 184, 138, 0.2)", // Chart 2
+          "rgba(242, 153, 51, 0.2)", // Chart 3
+          "rgba(153, 102, 204, 0.2)", // Chart 4
+          "rgba(221, 68, 136, 0.2)", // Chart 5
         ],
         borderColor: [
-          "rgb(75, 192, 192)", // Green
-          "rgb(54, 162, 235)", // Blue
-          "rgb(75, 192, 192)", // Green
-          "rgb(54, 162, 235)", // Blue
-          "rgb(75, 192, 192)", // Green
-          "rgb(54, 162, 235)", // Blue
-          "rgb(75, 192, 192)", // Green
-          "rgb(54, 162, 235)", // Blue
-          "rgb(75, 192, 192)", // Green
-          "rgb(54, 162, 235)", // Blue
+          "rgb(68, 136, 221)", // Chart 1
+          "rgb(46, 184, 138)", // Chart 2
+          "rgb(242, 153, 51)", // Chart 3
+          "rgb(153, 102, 204)", // Chart 4
+          "rgb(221, 68, 136)", // Chart 5
+          "rgb(68, 136, 221)", // Chart 1
+          "rgb(46, 184, 138)", // Chart 2
+          "rgb(242, 153, 51)", // Chart 3
+          "rgb(153, 102, 204)", // Chart 4
+          "rgb(221, 68, 136)", // Chart 5
         ],
         borderWidth: 2,
       },
@@ -93,8 +128,8 @@ const Barchart = ({ month }) => {
 
   const options = {};
   return (
-    <div className="w-[50%] flex flex-col items-center gap-16">
-      <h1 className="text-3xl uppercase">Bar chart - {month}</h1>
+    <div className="  w-[90%] md:w-[50%] flex flex-col items-center gap-16">
+      <h1 className="text-2xl uppercase">Bar chart - {month}</h1>
       <Bar data={data} options={options} className="" />
     </div>
   );
